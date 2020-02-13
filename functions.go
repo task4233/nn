@@ -1,11 +1,10 @@
 package mnist
-
 import (
 	"math"
 )
 
-// Sigmoid is an activation function
-// 1 / (1 + exp(-arr[i]))
+// Sigmoid is an activation function.
+// f(arr[i]) = 1 / (1 + exp(-arr[i]))
 func Sigmoid(arr [][]float64) [][]float64 {
 	resArr := makeMatrix(len(arr), len(arr[0]))
 	for ri := 0; ri < len(arr); ri++ {
@@ -16,7 +15,8 @@ func Sigmoid(arr [][]float64) [][]float64 {
 	return resArr
 }
 
-// Softmax is an activation function
+// Softmax is an activation function.
+// see: https://en.wikipedia.org/wiki/Softmax_function
 func Softmax(arr [][]float64) [][]float64 {
 	resArr := makeMatrix(len(arr), len(arr[0]))
 	for ri := 0; ri < len(arr); ri++ {

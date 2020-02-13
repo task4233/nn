@@ -4,6 +4,7 @@ import (
 	"errors"
 )
 
+// checkMatrixSize checks structure such as row and colums
 func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	status := len(lArr) == len(rArr)
 	if !status {
@@ -18,6 +19,7 @@ func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	return nil
 }
 
+// checkTransMatrixSize checks structure of trans matrix for calculating dot
 func checkTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	if len(lArr[0]) != len(rArr) {
 		return errors.New("Different columns")
