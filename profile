@@ -1,4 +1,14 @@
 mode: set
+mnist/functions.go:9.43,11.35 2 1
+mnist/functions.go:16.2,16.15 1 1
+mnist/functions.go:11.35,12.40 1 1
+mnist/functions.go:12.40,14.4 1 1
+mnist/functions.go:20.43,22.35 2 1
+mnist/functions.go:32.2,32.15 1 1
+mnist/functions.go:22.35,24.40 2 1
+mnist/functions.go:28.3,28.40 1 1
+mnist/functions.go:24.40,26.4 1 1
+mnist/functions.go:28.40,30.4 1 1
 mnist/matrix.go:7.64,9.13 2 1
 mnist/matrix.go:13.2,14.13 2 1
 mnist/matrix.go:18.2,18.12 1 1
@@ -24,15 +34,3 @@ mnist/matrix.go:60.38,61.42 1 1
 mnist/matrix.go:61.42,63.41 2 1
 mnist/matrix.go:66.4,66.24 1 1
 mnist/matrix.go:63.41,65.5 1 1
-mnist/functions.go:10.43,12.32 2 1
-mnist/functions.go:17.2,17.15 1 1
-mnist/functions.go:12.32,13.36 1 1
-mnist/functions.go:13.36,15.4 1 1
-mnist/functions.go:21.52,23.32 2 0
-mnist/functions.go:37.2,37.20 1 0
-mnist/functions.go:23.32,25.36 2 0
-mnist/functions.go:29.3,29.15 1 0
-mnist/functions.go:33.3,33.36 1 0
-mnist/functions.go:25.36,27.4 1 0
-mnist/functions.go:29.15,31.4 1 0
-mnist/functions.go:33.36,35.4 1 0

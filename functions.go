@@ -1,7 +1,6 @@
 package mnist
 
 import (
-	"errors"
 	"math"
 )
 
@@ -18,7 +17,7 @@ func Sigmoid(arr [][]float64) [][]float64 {
 }
 
 // Softmax is an activation function
-func Softmax(arr [][]float64) ([][]float64, error) {
+func Softmax(arr [][]float64) [][]float64 {
 	resArr := makeMatrix(len(arr), len(arr[0]))
 	for ri := 0; ri < len(arr); ri++ {
 		sum := 0.0
@@ -26,13 +25,9 @@ func Softmax(arr [][]float64) ([][]float64, error) {
 			sum += math.Exp(arr[ri][ci])
 		}
 
-		if sum == 0 {
-			return nil, errors.New("zero division")
-		}
-
 		for ci := 0; ci < len(arr[ri]); ci++ {
 			resArr[ri][ci] = math.Exp(arr[ri][ci]) / sum
 		}
 	}
-	return resArr, nil
+	return resArr
 }
