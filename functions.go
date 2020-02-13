@@ -8,29 +8,31 @@ import (
 // Sigmoid is an activation function
 // 1 / (1 + exp(-arr[i]))
 func Sigmoid(arr [][]float64) [][]float64 {
-	for i := 0; i < len(arr); i++ {
-		for j := 0; j < len(arr[i]); j++ {
-			arr[i][j] = 1.0 / (1.0 + math.Exp(-arr[i][j]))
+	resArr := makeMatrix(len(arr), len(arr[0]))
+	for ri := 0; ri < len(arr); ri++ {
+		for ci := 0; ci < len(arr[ri]); ci++ {
+			resArr[ri][ci] = 1.0 / (1.0 + math.Exp(-arr[ri][ci]))
 		}
 	}
-	return arr
+	return resArr
 }
 
 // Softmax is an activation function
 func Softmax(arr [][]float64) ([][]float64, error) {
-	for i := 0; i < len(arr); i++ {
+	resArr := makeMatrix(len(arr), len(arr[0]))
+	for ri := 0; ri < len(arr); ri++ {
 		sum := 0.0
-		for j := 0; j < len(arr[i]); j++ {
-			sum += arr[i][j]
+		for ci := 0; ci < len(arr[ri]); ci++ {
+			sum += math.Exp(arr[ri][ci])
 		}
 
 		if sum == 0 {
 			return nil, errors.New("zero division")
 		}
 
-		for j := 0; j < len(arr[i]); j++ {
-			arr[i][j] /= sum
+		for ci := 0; ci < len(arr[ri]); ci++ {
+			resArr[ri][ci] = math.Exp(arr[ri][ci]) / sum
 		}
 	}
-	return arr, nil
+	return resArr, nil
 }
