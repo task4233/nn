@@ -8,15 +8,23 @@ import (
 
 type mnist struct {
 	train_images *mnist_data
-	train_labels *mnist_data
+	train_labels *mnist_label
 	test_images  *mnist_data
-	test_labels  *mnist_data
+	test_labels  *mnist_label
+}
+
+type mnist_label struct {
+	filePath    string
+	numOfImages int
+	data        []int
 }
 
 type mnist_data struct {
 	filePath    string
 	numOfImages int
-	data        []byte
+    rows int
+    columns int
+	data        [][][]int
 }
 
 func (m *mnist) load_datas() error {
@@ -38,6 +46,18 @@ func (m *mnist) load_datas() error {
 	return nil
 }
 
+func (m *mnist_label) load_label() error {
+    data, err := ioutil.ReadFile(m.filePath)
+    if err != nil {
+        return err
+    }
+
+    // the number of images are in data[4:8]
+    m.numOfImages = int(binary.BigEndian.Uint32(data[4:8]))
+    
+}
+    
+
 // load_data loads image data
 // TRAINING SET IMAGE FILE (train-images-idx3-ubyte):
 // [offset] [type]          [value]          [description]
@@ -57,8 +77,19 @@ func (m *mnist_data) load_data() error {
 
 	// the number of images are in data[4:8]
 	m.numOfImages = int(binary.BigEndian.Uint32(data[4:8]))
+    m.rows = int(binary.BigEndian.Uint32(data[8:12]))
+    m.columns = int(binary.BigEndian.Uint32(data[12:16]))
 
+    sq := m.rows * m.columns
+    
+    for idx:= 0; idx < m.numOfImages; idx++ {
+        for ri := 0; ri < rows; ri++ {
+            // TODO
+            m.data[idx][ri] := data[8 + idx * sq: 8 + (idx + 1) * sq]
+        }
+    }
 	m.data = data[8:]
+    
 
 	return nil
 }
