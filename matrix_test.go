@@ -1,4 +1,4 @@
-package mnist
+package nn
 
 import (
 	"errors"

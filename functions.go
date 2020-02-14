@@ -1,4 +1,5 @@
-package mnist
+package nn
+
 import (
 	"math"
 )

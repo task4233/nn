@@ -1,18 +1,22 @@
-package mnist
+package nn
 
 import (
 	"errors"
+	"fmt"
+	"os"
 )
 
 // checkMatrixSize checks structure such as row and colums
 func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	status := len(lArr) == len(rArr)
 	if !status {
+		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
 		return errors.New("Different rows")
 	}
 
 	status = len(lArr[0]) == len(rArr[0])
 	if !status {
+		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
 		return errors.New("Different columns")
 	}
 
@@ -22,6 +26,7 @@ func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 // checkTransMatrixSize checks structure of trans matrix for calculating dot
 func checkTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	if len(lArr[0]) != len(rArr) {
+		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
 		return errors.New("Different columns")
 	}
 
@@ -40,7 +45,7 @@ func makeMatrix(row int, column int) [][]float64 {
 // add is the function which add first array and second array
 func add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	if err := checkMatrixSize(lArr, rArr); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed in add(): %s", err)
 	}
 
 	resArr := makeMatrix(len(lArr), len(lArr[0]))
@@ -55,7 +60,7 @@ func add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 // dot is the function which multiply first array and second array
 func dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	if err := checkTransMatrixSize(lArr, rArr); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed in dot(): %s", err)
 	}
 
 	resArr := makeMatrix(len(lArr), len(rArr[0]))
