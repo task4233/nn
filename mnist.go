@@ -1,13 +1,44 @@
-package main
+package nn
 
 import (
+	"encoding/binary"
 	"fmt"
 	"io/ioutil"
-	"os"
-    "encoding/binary"
 )
 
-// load_images loads image data
+type mnist struct {
+	train_images *mnist_data
+	train_labels *mnist_data
+	test_images  *mnist_data
+	test_labels  *mnist_data
+}
+
+type mnist_data struct {
+	filePath    string
+	numOfImages int
+	data        []byte
+}
+
+func (m *mnist) load_datas() error {
+	if err := m.train_images.load_data(); err != nil {
+		return fmt.Errorf("train_images : %v\n", err)
+	}
+
+	if err := m.train_labels.load_data(); err != nil {
+		return fmt.Errorf("train_labels : %v\n", err)
+	}
+
+	if err := m.test_images.load_data(); err != nil {
+		return fmt.Errorf("train_images : %v\n", err)
+	}
+
+	if err := m.test_labels.load_data(); err != nil {
+		return fmt.Errorf("train_labels : %v\n", err)
+	}
+	return nil
+}
+
+// load_data loads image data
 // TRAINING SET IMAGE FILE (train-images-idx3-ubyte):
 // [offset] [type]          [value]          [description]
 // 0000     32 bit integer  0x00000803(2051) magic number
@@ -18,34 +49,16 @@ import (
 // 0017     unsigned byte   ??               pixel
 // ........
 // xxxx     unsigned byte   ??               pixel
-func load_images(fp string) ([]byte, error) {
-	data, err := ioutil.ReadFile(fp)
+func (m *mnist_data) load_data() error {
+	data, err := ioutil.ReadFile(m.filePath)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-    // the number of images are in data[4:8]
-	numOfImages := binary.BigEndian.Uint32(data[4:8])
-    fmt.Println(numOfImages)
+	// the number of images are in data[4:8]
+	m.numOfImages = int(binary.BigEndian.Uint32(data[4:8]))
 
-	resData := make([]byte, numOfImages)
-	resData = data[8:]
+	m.data = data[8:]
 
-	return resData, nil
-}
-
-func main() {
-	fps := []string{"./mnist/t10k-images-idx3-ubyte", "./mnist/t10k-labels-idx1-ubyte", "./mnist/train-images-idx3-ubyte", "./mnist/train-labels-idx1-ubyte"}
-	for _, fp := range fps {
-		fmt.Printf("%s : ", fp)
-		resData, err := load_images(fp)
-        if err != nil {
-			fmt.Errorf("Error: %v\n", err)
-			os.Exit(1)
-		}
-
-        fmt.Println(resData)
-        
-	}
-
+	return nil
 }
