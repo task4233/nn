@@ -70,9 +70,7 @@ func (m *mnist_label) load_label() error {
     m.data = make([]int, m.numOfLabels)
 
 	for idx := 0; idx < m.numOfLabels; idx++ {
-        fmt.Println(idx)
-        fmt.Println(int(binary.BigEndian.Uint32(data[8+idx : 8+(idx+1)*4])))
-		m.data[idx] = int(binary.BigEndian.Uint32(data[8+idx : 8+(idx+1)]))
+		m.data[idx] = int(data[8+idx])
 	}
 	return nil
 }
@@ -121,3 +119,4 @@ func (m *mnist_data) load_data() error {
 	}
 	return nil
 }
+
