@@ -10,7 +10,8 @@ import (
 func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	status := len(lArr) == len(rArr)
 	if !status {
-		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
+        // for check
+        fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
 		return errors.New("Different rows")
 	}
 
