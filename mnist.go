@@ -112,9 +112,16 @@ func (m *mnist_data) load_data() error {
 	sq := m.rows * m.columns
 
 	for idx := 0; idx < m.numOfImages; idx++ {
+        // assign data each rows
+        // m.data[idx][rows][columns]
+        // m.data[idx=0][row=0] = data[8 + idx=0*sq + 0 * columns:8 + 1 * columns]
+        // m.data[idx=0][row=1] = data[8 + idx=0*sq + 1 * columns:8 + 2 * columns]
+        // ...
+        // m.data[idx=1][row=0] = data[8 + idx=1*sq + 0 * columns:8 + 1 * columns]
 		for ri := 0; ri < m.rows; ri++ {
-			// TODO
-			m.data[idx][ri] = data[8+idx*sq : 8+(idx+1)*sq]
+            lb := 8 + idx*sq + ri * m.columns
+            ub := 8 + idx*sq + (ri + 1) * m.columns
+			m.data[idx][ri] = data[lb:ub]
 		}
 	}
 	return nil
