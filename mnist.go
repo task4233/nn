@@ -29,22 +29,22 @@ type mnist_data struct {
 }
 
 func (m *mnist) load_datas() error {
-    fmt.Println("read training images")
+	fmt.Println("read training images")
 	if err := m.train_images.load_data(); err != nil {
 		return fmt.Errorf("train_images : %v\n", err)
 	}
 
-    fmt.Println("read training labels")
+	fmt.Println("read training labels")
 	if err := m.train_labels.load_label(); err != nil {
 		return fmt.Errorf("train_labels : %v\n", err)
 	}
 
-    fmt.Println("read test images")
+	fmt.Println("read test images")
 	if err := m.test_images.load_data(); err != nil {
 		return fmt.Errorf("train_images : %v\n", err)
 	}
 
-    fmt.Println("read test labels")
+	fmt.Println("read test labels")
 	if err := m.test_labels.load_label(); err != nil {
 		return fmt.Errorf("train_labels : %v\n", err)
 	}
@@ -64,10 +64,10 @@ func (m *mnist_label) load_label() error {
 	if err != nil {
 		return err
 	}
-    
+
 	// the number of labels are in data[4:8]
 	m.numOfLabels = int(binary.BigEndian.Uint32(data[4:8]))
-    m.data = make([]int, m.numOfLabels)
+	m.data = make([]int, m.numOfLabels)
 
 	for idx := 0; idx < m.numOfLabels; idx++ {
 		m.data[idx] = int(data[8+idx])
@@ -92,38 +92,37 @@ func (m *mnist_data) load_data() error {
 		return err
 	}
 
-    // initializing
+	// initializing
 	// the number of images are in data[4:8]
 	m.numOfImages = int(binary.BigEndian.Uint32(data[4:8]))
-    m.data = make([][][]byte, m.numOfImages)
-    
+	m.data = make([][][]byte, m.numOfImages)
+
 	m.rows = int(binary.BigEndian.Uint32(data[8:12]))
-    for idx:=0; idx<m.numOfImages; idx++ {
-        m.data[idx] = make([][]byte, m.rows)
-    }
-    
+	for idx := 0; idx < m.numOfImages; idx++ {
+		m.data[idx] = make([][]byte, m.rows)
+	}
+
 	m.columns = int(binary.BigEndian.Uint32(data[12:16]))
-    for idx :=0; idx<m.numOfImages; idx++ {
-        for ri:=0; ri<m.rows; ri++ {
-            m.data[idx][ri] = make([]byte, m.columns)
-        }
-    }
+	for idx := 0; idx < m.numOfImages; idx++ {
+		for ri := 0; ri < m.rows; ri++ {
+			m.data[idx][ri] = make([]byte, m.columns)
+		}
+	}
 
 	sq := m.rows * m.columns
 
 	for idx := 0; idx < m.numOfImages; idx++ {
-        // assign data each rows
-        // m.data[idx][rows][columns]
-        // m.data[idx=0][row=0] = data[8 + idx=0*sq + 0 * columns:8 + 1 * columns]
-        // m.data[idx=0][row=1] = data[8 + idx=0*sq + 1 * columns:8 + 2 * columns]
-        // ...
-        // m.data[idx=1][row=0] = data[8 + idx=1*sq + 0 * columns:8 + 1 * columns]
+		// assign data each rows
+		// m.data[idx][rows][columns]
+		// m.data[idx=0][row=0] = data[8 + idx=0*sq + 0 * columns:8 + 1 * columns]
+		// m.data[idx=0][row=1] = data[8 + idx=0*sq + 1 * columns:8 + 2 * columns]
+		// ...
+		// m.data[idx=1][row=0] = data[8 + idx=1*sq + 0 * columns:8 + 1 * columns]
 		for ri := 0; ri < m.rows; ri++ {
-            lb := 8 + idx*sq + ri * m.columns
-            ub := 8 + idx*sq + (ri + 1) * m.columns
+			lb := 8 + idx*sq + ri*m.columns
+			ub := 8 + idx*sq + (ri+1)*m.columns
 			m.data[idx][ri] = data[lb:ub]
 		}
 	}
 	return nil
 }
-

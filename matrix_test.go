@@ -2,8 +2,8 @@ package nn
 
 import (
 	"errors"
+	"fmt"
 	"testing"
-    "fmt"
 )
 
 func areSameMatrixes(lArr [][]float64, rArr [][]float64) error {
@@ -34,8 +34,8 @@ func TestMakeMatrix(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-            fmt.Printf("[TEST] %s begins\n", c.name)
-            actual := makeMatrix(c.input1, c.input2)
+			fmt.Printf("[TEST] %s begins\n", c.name)
+			actual := makeMatrix(c.input1, c.input2)
 			if err := checkMatrixSize(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: makeMatrix(%v, %v) = %v, got %v",
@@ -58,8 +58,8 @@ func TestAdd(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-            fmt.Printf("[TEST] %s begins\n", c.name)
-            actual, err := add(c.input1, c.input2)
+			fmt.Printf("[TEST] %s begins\n", c.name)
+			actual, err := add(c.input1, c.input2)
 			if err != nil {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)
@@ -88,8 +88,8 @@ func TestDot(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-            fmt.Printf("[TEST] %s begins\n", c.name)
-            actual, err := dot(c.input1, c.input2)
+			fmt.Printf("[TEST] %s begins\n", c.name)
+			actual, err := dot(c.input1, c.input2)
 			if err != nil {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)

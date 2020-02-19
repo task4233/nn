@@ -1,6 +1,9 @@
 package nn
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 // TestSigmoid is checked on python3
 // accuracy is the 16-th decimal
@@ -39,6 +42,7 @@ func TestSoftmax(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			fmt.Printf("[TEST] %s begins\n", c.name)
 			actual := Softmax(c.input)
 			if err := areSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(

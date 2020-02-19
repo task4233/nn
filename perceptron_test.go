@@ -1,6 +1,9 @@
 package nn
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestForward(t *testing.T) {
 	nn := &neuralNetwork{}
@@ -18,6 +21,7 @@ func TestForward(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
+			fmt.Printf("[TEST] %s begins\n", c.name)
 			actual, err := nn.forward(c.input)
 			if err != nil {
 				if c.expected != nil {
