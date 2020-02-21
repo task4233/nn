@@ -102,3 +102,32 @@ func TestDot(t *testing.T) {
 		})
 	}
 }
+
+// TestConstMul
+func TestConstMul(t *testing.T) {
+	cases := []struct {
+		name     string
+		input1   float64
+		input2   [][]float64
+		expected [][]float64
+	}{
+		{name: "val-2x2", input1: 2.0, input2: [][]float64{{2.0, 3.0}, {3.0, 4.0}}, expected: [][]float64{{4.0, 6.0}, {6.0, 8.0}}},
+		{name: "0-2x2", input1: 0, input2: [][]float64{{2.0, 3.0}, {3.0, 4.0}}, expected: [][]float64{{0, 0}, {0, 0}}},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			fmt.Printf("[TEST] %s begins\n", c.name)
+			actual, err := constMul(c.input1, c.input2)
+			if err != nil {
+				if c.expected != nil {
+					t.Errorf("Error: %v\n", err)
+				}
+			} else if err := areSameMatrixes(actual, c.expected); err != nil {
+				t.Errorf(
+					"expected: dot(%v, %v) = %v, got %v",
+					c.input1, c.input2, c.expected, actual)
+			}
+		})
+	}
+}

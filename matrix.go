@@ -78,7 +78,13 @@ func dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 }
 
 // constMul is the function which multiply the first value and second array
-func constMul(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
-    // TODO
-    // implements const multiplication
+func constMul(lVal float64, rArr [][]float64) ([][]float64, error) {
+	// implements const multiplication
+	resArr := makeMatrix(len(rArr), len(rArr[0]))
+	for ri := 0; ri < len(resArr); ri++ {
+		for ci := 0; ci < len(resArr[0]); ci++ {
+			resArr[ri][ci] = rArr[ri][ci] * lVal
+		}
+	}
+	return resArr, nil
 }
