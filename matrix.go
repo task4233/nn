@@ -76,3 +76,9 @@ func dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	}
 	return resArr, nil
 }
+
+// constMul is the function which multiply the first value and second array
+func constMul(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
+    // TODO
+    // implements const multiplication
+}
