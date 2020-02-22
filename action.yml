@@ -1,0 +1,15 @@
+name: 'static analysis checker'
+author: 'task4233'
+description: 'execute static analysis'
+inputs:
+  run:
+    description: 'execute commands. [errcheck/fmt/imports/lint/gsc/staticcheck]'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.run }}
+branding:
+  icon: 'check-circle'
+  color: 'green'
