@@ -3,7 +3,7 @@ author: 'task4233'
 description: 'execute static analysis'
 inputs:
   run:
-    description: 'execute commands. [errcheck/fmt/imports/lint/gsc/staticcheck]'
+    description: 'execute commands. [fmt/imports/lint/gsc/staticcheck]'
     required: true
   pkgRoot:
     description: 'package root directory.'

@@ -47,49 +47,106 @@ module_download() {
     fi
 }
 
-# run_reviewdog executes golint, gsc, staticcheck by reviewdog
-# this function sends comment to pull request if it has errors
-run_reviewdog() {
+run_gofmt() {
     set +e
-    
-    # golint for checking coding style
-    golint $PKGNAME \
-	| eval reviewdog -f=golint $REVIEWDOG_ARG
-    SUCCESS=$?
 
-    if [ ${SUCCESS} -ne 0]; then
-	
-	if [ "${SEND_COMMENT}" = "true" ]; then
-	    COMMENT="golint failed
-\`\`\`
-${OUTPUT}				
-\`\`\`
-"	
-	fi
-    fi
-    
-    # gsc for static analysis
-    gsc $PKGNAME \
-	| eval reviewdog -f=golint -name="gsc" $REVIEWDOG_ARG
-    
-    
-    
-    # staticcheck is like a go vet
-    staticcheck $PKGNAME \
-	| eval reviewdog -f=golint -name="staticcheck" $REVIEWDOG_ARG
+    # TODO
+    # impelements workflow
 
     set -e
 
+    # exit successfully
+    if [ ${SUCCESS} -eq 0]; then
+	return
+    fi
+
+    # TODO
+    # implements applying comment
+}
+
+
+run_goimports() {
+        set +e
+
+    # TODO
+    # impelements workflow
+
+    set -e
+
+    # exit successfully
+    if [ ${SUCCESS} -eq 0]; then
+	return
+    fi
+
+    # TODO
+    # implements applying comment
     
+}
+
+# golint for checking coding style
+run_golint() {
+    set +e
+
+    # TODO
+    # impelements workflow
+
+    set -e
+
+    # exit successfully
+    if [ ${SUCCESS} -eq 0]; then
+	return
+    fi
+
+    # TODO
+    # implements applying comment
+    
+}
+    
+# gsc for static analysis
+run_gsc() {
+}
+
+# staticcheck is like a go vet
+run_staticcheck() {
+    set +e
+
+    # TODO
+    # impelements workflow
+
+    set -e
+
+    # exit successfully
+    if [ ${SUCCESS} -eq 0]; then
+	return
+    fi
+
+    # TODO
+    # implements applying comment
 }
 
 # -------------
 # Main
 # ------------
 case ${RUN} in
-    "errcheck" )
+    "fmt" )
 	module_download
-	exec_errcheck
+	run_gofmt
+	;;
+    "imports" )
+	module_download
+	run_goimports
+	;;
+    "lint" )
+	module_download
+	run_golint
+	;;
+    "gsc" )
+	module_download
+	run_gsc
+	;;
+    "staticcheck" )
+	module_download
+	run_staticcheck
 	;;
     * )
 	echo "Invalid command." >&2
