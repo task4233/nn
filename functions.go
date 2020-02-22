@@ -13,7 +13,7 @@ func Sigmoid(arr [][]float64) [][]float64 {
 			resArr[ri][ci] = 1.0 / (1.0 + math.Exp(-arr[ri][ci]))
 		}
 	}
-	return resArr
+	return resArr, nil
 }
 
 // Softmax is an activation function.
