@@ -12,13 +12,13 @@ func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	if !status {
 		// for check
 		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
-		return errors.New("Different rows")
+		return errors.New("different rows")
 	}
 
 	status = len(lArr[0]) == len(rArr[0])
 	if !status {
 		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
-		return errors.New("Different columns")
+		return errors.New("different columns")
 	}
 
 	return nil
@@ -28,7 +28,7 @@ func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 func checkTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	if len(lArr[0]) != len(rArr) {
 		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
-		return errors.New("Different columns")
+		return errors.New("different columns")
 	}
 
 	return nil
