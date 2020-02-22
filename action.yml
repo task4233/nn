@@ -5,11 +5,21 @@ inputs:
   run:
     description: 'execute commands. [errcheck/fmt/imports/lint/gsc/staticcheck]'
     required: true
+  pkgRoot:
+    description: 'package root directory.'
+    default: '.'
+    required: false
+  sendComment:
+    description: 'if true, send comment to pull request'
+    default: true
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.run }}
+    - ${{ inputs.pkgRoot }}
+    - ${{ inputs.sendComment }}
 branding:
   icon: 'check-circle'
   color: 'green'
