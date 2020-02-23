@@ -8,7 +8,7 @@ func Sigmoid(arr [][]float64) [][]float64 {
 	resArr := makeMatrix(len(arr), len(arr[0]))
 	for ri := 0; ri < len(arr); ri++ {
 		for ci := 0; ci < len(arr[ri]); ci++ {
-			resArr[ri][ci] = 1.0 / (1.0 + math.Exp(-arr[ri][ci]))
+			resArr[ri][ci] := 1.0 / (1.0 + math.Exp(-arr[ri][ci]))
 		}
 	}
 	return resArr
