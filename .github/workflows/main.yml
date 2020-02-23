@@ -37,7 +37,7 @@ jobs:
       with:
         run: lint
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        
+
   gsc:
     name: gsc
     runs-on: ubuntu-latest
@@ -70,3 +70,4 @@ jobs:
       with:
         run: staticcheck
         repo-token: ${{ secrets.GITHUB_TOKEN }}
+
