@@ -67,9 +67,11 @@ run_gofmt() {
     if [ "${SEND_COMMENT}" = "true" ]; then
 	FMT_OUTPUT=""
 	for file in ${NG_FILE_LIST}; do
-	    # display all errors instead of rewriting file
-	    FILE_DIFF=$(gofmt -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
-	    FMT_OUTPUT="${FMT_OUTPUT}
+	    file=${file%.go*}.go
+	    if [ -e ${file} ]; then
+		# display all errors instead of rewriting file
+		FILE_DIFF=$(gofmt -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
+		FMT_OUTPUT="${FMT_OUTPUT}
 <details><summary><code>${file}</code></summary>
 
 \`\`\`diff
@@ -78,6 +80,7 @@ ${FILE_DIFF}
 </details>
 	
 "
+	    fi
 	done
 	COMMENT="## gofmt failed
 ${FMT_OUTPUT}
@@ -105,14 +108,17 @@ run_goimports() {
 	for file in ${NG_FILE_LIST}; do
 	    # display all errors instead of rewriting file
 	    # and delete unnecessary zone
-	    FILE_DIFF=$(goimports -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
-	    FMT_OUTPUT="${FMT_OUTPUT}
+	    file=${file%.go*}.go
+	    if [ -e ${file} ]; then
+		FILE_DIFF=$(goimports -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
+		FMT_OUTPUT="${FMT_OUTPUT}
 <details><summary><code>${file}</code></summary>
-\`\`\`diff			
+\`\`\`diff				
 ${FILE_DIFF}
 \`\`\`
 </details>
 "
+	    fi
 	done
 	COMMENT="## goimports failed
 ${FMT_OUTPUT}
