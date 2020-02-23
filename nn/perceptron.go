@@ -2,7 +2,7 @@ package nn
 
 import "fmt"
 
-// NeuralNetwork 
+// NeuralNetwork
 type NeuralNetwork struct {
 	middleLayerNum int
 	weight         [][][]float64
