@@ -108,12 +108,10 @@ run_goimports() {
 	    FILE_DIFF=$(goimports -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
 	    FMT_OUTPUT="${FMT_OUTPUT}
 <details><summary><code>${file}</code></summary>
-
-\`\`\`diff
+\`\`\`diff			
 ${FILE_DIFF}
 \`\`\`
-</details>w
-	
+</details>
 "
 	done
 	COMMENT="## goimports failed
