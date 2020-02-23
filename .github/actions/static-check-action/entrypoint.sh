@@ -33,7 +33,7 @@ PKGNAME=$(go list ./...)
 send_comment() {
     PAYLOAD=$(echo '{}' | jq --arg body "${COMMENT}" '.body = $body')
     COMMENTS_URL=$(cat ${GITHUB_EVENT_PATH} | jq -r .pull_request.comments_url)
-    curl -s -S -H "Authorization: token ${GITHUB_TOKEN}" --header "Content-Type: application/json" --data "{PAYLOAD}" "${COMMENTS_URL}" > /dev/null
+    curl -s -S -H "Authorization: token ${GITHUB_TOKEN}" --header "Content-Type: application/json" --data "${PAYLOAD}" "${COMMENTS_URL}" > /dev/null
 }
 
 # module_download prepares depending modules
@@ -67,17 +67,22 @@ run_gofmt() {
     if [ "${SEND_COMMENT}" = "true" ]; then
 	FMT_OUTPUT=""
 	for file in ${NG_FILE_LIST}; do
-	    # display all errors instead of rewriting file
-	    FILE_DIFF=$(gofmt -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
-	    FMT_OUTPUT="${FMT_OUTPUT}
-<details><summary><code>${file}</code></summary>
+	    mdfile=${file%.go*}.go
+	    if [ -e ${mdfile} ]; then
+		echo ${mdfile}
+		
+		# display all errors instead of rewriting file
+		FILE_DIFF=$(gofmt -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
+		FMT_OUTPUT="${FMT_OUTPUT}
+<details><summary><code>${mdfile}</code></summary>
 
-\`\`\`diff
+\`\`\`
 ${FILE_DIFF}
 \`\`\`
 </details>
 	
 "
+	    fi
 	done
 	COMMENT="## gofmt failed
 ${FMT_OUTPUT}
@@ -105,16 +110,20 @@ run_goimports() {
 	for file in ${NG_FILE_LIST}; do
 	    # display all errors instead of rewriting file
 	    # and delete unnecessary zone
-	    FILE_DIFF=$(goimports -d -e "${file}" | sed -n '/@@.*/,//{/@@.*/d;p}')
-	    FMT_OUTPUT="${FMT_OUTPUT}
-<details><summary><code>${file}</code></summary>
-
-\`\`\`diff
+	    mdfile=${file%.go*}.go
+	    if [ -e ${mdfile} ]; then
+		echo ${mdfile}
+		
+		FILE_DIFF=$(goimports -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
+		FMT_OUTPUT="${FMT_OUTPUT}
+<details><summary><code>${mdfile}</code></summary>
+\`\`\`				
 ${FILE_DIFF}
 \`\`\`
-</details>w
-	
+</details>
+
 "
+	    fi
 	done
 	COMMENT="## goimports failed
 ${FMT_OUTPUT}
@@ -264,13 +273,13 @@ case ${RUN} in
 	run_staticcheck
 	;;
     * )
-	echo "Invalid command." >&2
+	echo "Invalid command."
 	exit 1
 esac
 
 if [ ${SUCCESS} -ne 0 ]; then
-    echo "Check failed." >&2
-    echo "${COMMENT}" >&2
+    echo "Check failed."
+    echo "${COMMENT}"
     if [ "${SEND_COMMENT}" = "true" ]; then
 	send_comment
     fi
