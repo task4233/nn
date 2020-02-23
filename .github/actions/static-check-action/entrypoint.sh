@@ -69,6 +69,8 @@ run_gofmt() {
 	for file in ${NG_FILE_LIST}; do
 	    mdfile=${file%.go*}.go
 	    if [ -e ${mdfile} ]; then
+		echo ${mdfile}
+		
 		# display all errors instead of rewriting file
 		FILE_DIFF=$(gofmt -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
 		FMT_OUTPUT="${FMT_OUTPUT}
@@ -110,6 +112,8 @@ run_goimports() {
 	    # and delete unnecessary zone
 	    mdfile=${file%.go*}.go
 	    if [ -e ${mdfile} ]; then
+		echo ${mdfile}
+		
 		FILE_DIFF=$(goimports -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
 		FMT_OUTPUT="${FMT_OUTPUT}
 <details><summary><code>${file}</code></summary>
@@ -117,6 +121,7 @@ run_goimports() {
 ${FILE_DIFF}
 \`\`\`
 </details>
+
 "
 	    fi
 	done
