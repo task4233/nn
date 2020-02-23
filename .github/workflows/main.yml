@@ -1,0 +1,11 @@
+name: main workflow
+on: pull_request
+
+jobs:
+  imports:
+    name: goimports
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: imports
+      uses: ./Dockerfile
