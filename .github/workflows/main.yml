@@ -70,4 +70,4 @@ jobs:
       with:
         run: staticcheck
         repo-token: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> master
+
