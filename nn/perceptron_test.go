@@ -6,8 +6,8 @@ import (
 )
 
 func TestForward(t *testing.T) {
-	nn := &neuralNetwork{}
-	nn.init()
+	nn := &NeuralNetwork{}
+	nn.Init()
 
 	cases := []struct {
 		name     string
@@ -22,7 +22,7 @@ func TestForward(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			fmt.Printf("[TEST] %s begins\n", c.name)
-			actual, err := nn.forward(c.input)
+			actual, err := nn.Forward(c.input)
 			if err != nil {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)
