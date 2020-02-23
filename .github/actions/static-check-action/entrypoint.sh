@@ -74,9 +74,9 @@ run_gofmt() {
 		# display all errors instead of rewriting file
 		FILE_DIFF=$(gofmt -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
 		FMT_OUTPUT="${FMT_OUTPUT}
-<details><summary><code>${file}</code></summary>
+<details><summary><code>${mdfile}</code></summary>
 
-\`\`\`diff
+\`\`\`
 ${FILE_DIFF}
 \`\`\`
 </details>
@@ -116,7 +116,7 @@ run_goimports() {
 		
 		FILE_DIFF=$(goimports -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
 		FMT_OUTPUT="${FMT_OUTPUT}
-<details><summary><code>${file}</code></summary>
+<details><summary><code>${mdfile}</code></summary>
 \`\`\`				
 ${FILE_DIFF}
 \`\`\`
