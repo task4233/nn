@@ -9,22 +9,22 @@ func TestMnist(t *testing.T) {
 	// set Mnist's data
 	mnists := &Mnist{
 		TrainImages: &MnistData{
-			filePath:    "./Mnist/train-images-idx3-ubyte",
+			filePath:    "./mnist/train-images-idx3-ubyte",
 			numOfImages: 0,
 			data:        [][][]byte{},
 		},
 		TrainLabels: &MnistLabel{
-			filePath:    "./Mnist/train-images-idx3-ubyte",
+			filePath:    "./mnist/train-images-idx3-ubyte",
 			numOfLabels: 0,
 			data:        []int{},
 		},
 		TestImages: &MnistData{
-			filePath:    "./Mnist/t10k-images-idx3-ubyte",
+			filePath:    "./mnist/t10k-images-idx3-ubyte",
 			numOfImages: 0,
 			data:        [][][]byte{},
 		},
 		TestLabels: &MnistLabel{
-			filePath:    "./Mnist/t10k-labels-idx1-ubyte",
+			filePath:    "./mnist/t10k-labels-idx1-ubyte",
 			numOfLabels: 0,
 			data:        []int{},
 		},
