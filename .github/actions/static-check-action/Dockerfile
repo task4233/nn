@@ -14,4 +14,5 @@ RUN apt update && \
        honnef.co/go/tools/cmd/staticcheck
 
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod 700 /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
