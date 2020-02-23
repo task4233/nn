@@ -264,13 +264,13 @@ case ${RUN} in
 	run_staticcheck
 	;;
     * )
-	echo "Invalid command." >&2
+	echo "Invalid command."
 	exit 1
 esac
 
 if [ ${SUCCESS} -ne 0 ]; then
-    echo "Check failed." >&2
-    echo "${COMMENT}" >&2
+    echo "Check failed."
+    echo "${COMMENT}"
     if [ "${SEND_COMMENT}" = "true" ]; then
 	send_comment
     fi
