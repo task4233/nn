@@ -12,10 +12,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: run gofmt
       uses: ./.github/actions/static-check-action
-      env:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
       with:
         run: fmt
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
   imports:
     name: goimports
@@ -35,11 +34,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: run golint
       uses: ./.github/actions/static-check-action
-      env:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
       with:
         run: lint
- 
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+
   gsc:
     name: gsc
     runs-on: ubuntu-latest
@@ -47,11 +45,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: run gsc
       uses: ./.github/actions/static-check-action
-      env:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
       with:
         run: gsc
- 
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        
   sec:
     name: sec
     runs-on: ubuntu-latest
@@ -59,10 +56,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: run gosec
       uses: ./.github/actions/static-check-action
-      env:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
       with:
         run: sec
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
         
   staticcheck:
     name: staticcheck
@@ -71,8 +67,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: run staticcheck
       uses: ./.github/actions/static-check-action
-      env:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
       with:
         run: staticcheck
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
 
