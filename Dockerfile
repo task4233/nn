@@ -1,10 +1,17 @@
-FROM golangci/golangci-lint:v1.23-alpine
+FROM golang:latest
 
-RUN wget -O - -q https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v0.9.15
+ENV GO111MODULE=on
 
-RUN apk --no-cache add git && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt update &&
+    apt -y install jq &
+    : install golangci-lint &
+    curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.23.6 & 
+    go get -u \
+       golang.org/x/tools/cmd/goimports \
+       golang.org/x/lint/golint \
+       github.com/daisuzu/gsc \
+       github.com/securego/gosec/cmd/gosec \
+       honnef.co/go/tools/cmd/staticcheck
 
 COPY entrypoint.sh /entrypoint.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
