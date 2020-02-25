@@ -2,14 +2,14 @@ package nn
 
 import "fmt"
 
-// NeuralNetwork
+// NeuralNetwork has the information for building neural network
 type NeuralNetwork struct {
 	middleLayerNum int
 	weight         [][][]float64
 	bias           [][][]float64
 }
 
-// Init initalize init values
+// Init initialize init values
 func (n *NeuralNetwork) Init() {
 	n.middleLayerNum = 2
 	n.weight = [][][]float64{
