@@ -1,6 +1,6 @@
 # nn
-![GitHub Actions](https://github.com/task4233/nn/workflows/Static%20check%20with%20PR%20and%20Add%20comment%20each%20error/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/task4233/nn)](https://goreportcard.com/report/github.com/task4233/nn)
+![GitHub Actions](https://github.com/task4233/nn/workflows/Static%20check%20with%20PR%20and%20Add%20comment%20each%20error/badge.svg)
 
 Implements neural network from scratch in Golang
 
