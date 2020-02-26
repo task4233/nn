@@ -2,14 +2,15 @@ package nn
 
 import "fmt"
 
-type neuralNetwork struct {
+// NeuralNetwork has the information for building neural network
+type NeuralNetwork struct {
 	middleLayerNum int
 	weight         [][][]float64
 	bias           [][][]float64
 }
 
-// init initalize init values
-func (n *neuralNetwork) init() {
+// Init initialize init values
+func (n *NeuralNetwork) Init() {
 	n.middleLayerNum = 2
 	n.weight = [][][]float64{
 		{{0.1, 0.1, 0.1}, {0.1, 0.1, 0.1}},
@@ -21,18 +22,18 @@ func (n *neuralNetwork) init() {
 	}
 }
 
-// forward is forwarding function
-func (n *neuralNetwork) forward(dataArr [][]float64) ([][]float64, error) {
-	resArr := makeMatrix(len(dataArr), len(dataArr[0]))
+// Forward is forwarding function
+func (n *NeuralNetwork) Forward(dataArr [][]float64) ([][]float64, error) {
+	resArr := MakeMatrix(len(dataArr), len(dataArr[0]))
 	copy(resArr, dataArr)
 
 	for idx := 0; idx < n.middleLayerNum; idx++ {
-		tmpArr0, err := dot(resArr, n.weight[idx])
+		tmpArr0, err := Dot(resArr, n.weight[idx])
 		if err != nil {
 			return nil, fmt.Errorf("failed in forward(): %s", err)
 		}
 
-		tmpArr1, err := add(tmpArr0, n.bias[idx])
+		tmpArr1, err := Add(tmpArr0, n.bias[idx])
 		if err != nil {
 			return nil, fmt.Errorf("failed in forward(): %s", err)
 		}

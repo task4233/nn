@@ -6,20 +6,24 @@ import (
 	"io/ioutil"
 )
 
-type mnist struct {
-	trainImages *mnistData
-	trainLabels *mnistLabel
-	testImages  *mnistData
-	testLabels  *mnistLabel
+// Mnist has trainImages, trainLabels, testImages and testLabels.
+// see: http://yann.lecun.com/exdb/mnist/
+type Mnist struct {
+	TrainImages *MnistData
+	TrainLabels *MnistLabel
+	TestImages  *MnistData
+	TestLabels  *MnistLabel
 }
 
-type mnistLabel struct {
+// MnistLabel has filePath, numOfLabels and data for label
+type MnistLabel struct {
 	filePath    string
 	numOfLabels int
 	data        []int
 }
 
-type mnistData struct {
+// MnistData has filePath, numofImages, rows, columns and data for images
+type MnistData struct {
 	filePath    string
 	numOfImages int
 	rows        int
@@ -28,24 +32,25 @@ type mnistData struct {
 	data [][][]byte
 }
 
-func (m *mnist) loadDatas() error {
+// LoadData loads mnist data
+func (m *Mnist) LoadData() error {
 	fmt.Println("read training images")
-	if err := m.trainImages.loadData(); err != nil {
+	if err := m.TrainImages.loadData(); err != nil {
 		return fmt.Errorf("train images : %v", err)
 	}
 
 	fmt.Println("read training labels")
-	if err := m.trainLabels.loadLabel(); err != nil {
+	if err := m.TrainLabels.loadLabel(); err != nil {
 		return fmt.Errorf("train labels : %v", err)
 	}
 
 	fmt.Println("read test images")
-	if err := m.testImages.loadData(); err != nil {
+	if err := m.TestImages.loadData(); err != nil {
 		return fmt.Errorf("train images : %v", err)
 	}
 
 	fmt.Println("read test labels")
-	if err := m.testLabels.loadLabel(); err != nil {
+	if err := m.TestLabels.loadLabel(); err != nil {
 		return fmt.Errorf("train labels : %v", err)
 	}
 	return nil
@@ -59,7 +64,7 @@ func (m *mnist) loadDatas() error {
 // ........
 // xxxx     unsigned byte   ??               label
 // The labels values are 0 to 9.
-func (m *mnistLabel) loadLabel() error {
+func (m *MnistLabel) loadLabel() error {
 	data, err := ioutil.ReadFile(m.filePath)
 	if err != nil {
 		return err
@@ -86,7 +91,7 @@ func (m *mnistLabel) loadLabel() error {
 // 0017     unsigned byte   ??               pixel
 // ........
 // xxxx     unsigned byte   ??               pixel
-func (m *mnistData) loadData() error {
+func (m *MnistData) loadData() error {
 	data, err := ioutil.ReadFile(m.filePath)
 	if err != nil {
 		return err

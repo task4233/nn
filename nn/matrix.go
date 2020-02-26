@@ -24,7 +24,7 @@ func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	return nil
 }
 
-// checkTransMatrixSize checks structure of trans matrix for calculating dot
+// checkTransMatrixSize checks structure of trans matrix for calculating Dot
 func checkTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	if len(lArr[0]) != len(rArr) {
 		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
@@ -34,8 +34,8 @@ func checkTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	return nil
 }
 
-// makeMatrix makes slice (first arugument) x (second argument)
-func makeMatrix(row int, column int) [][]float64 {
+// MakeMatrix makes slice (first arugument) x (second argument)
+func MakeMatrix(row int, column int) [][]float64 {
 	resArr := make([][]float64, row)
 	for ri := 0; ri < row; ri++ {
 		resArr[ri] = make([]float64, column)
@@ -43,13 +43,13 @@ func makeMatrix(row int, column int) [][]float64 {
 	return resArr
 }
 
-// add is the function which add first array and second array
-func add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
+// Add is the function which add first array and second array
+func Add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	if err := checkMatrixSize(lArr, rArr); err != nil {
 		return nil, fmt.Errorf("failed in add(): %s", err)
 	}
 
-	resArr := makeMatrix(len(lArr), len(lArr[0]))
+	resArr := MakeMatrix(len(lArr), len(lArr[0]))
 	for ri := 0; ri < len(lArr); ri++ {
 		for ci := 0; ci < len(lArr[0]); ci++ {
 			resArr[ri][ci] = lArr[ri][ci] + rArr[ri][ci]
@@ -58,13 +58,13 @@ func add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	return resArr, nil
 }
 
-// dot is the function which multiply first array and second array
-func dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
+// Dot is the function which multiply first array and second array
+func Dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	if err := checkTransMatrixSize(lArr, rArr); err != nil {
 		return nil, fmt.Errorf("failed in dot(): %s", err)
 	}
 
-	resArr := makeMatrix(len(lArr), len(rArr[0]))
+	resArr := MakeMatrix(len(lArr), len(rArr[0]))
 	for ri := 0; ri < len(resArr); ri++ {
 		for ci := 0; ci < len(resArr[0]); ci++ {
 			sum := 0.0
@@ -77,10 +77,10 @@ func dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 	return resArr, nil
 }
 
-// constMul is the function which multiply the first value and second array
-func constMul(lVal float64, rArr [][]float64) ([][]float64, error) {
+// ConstMul is the function which multiply the first value and second array
+func ConstMul(lVal float64, rArr [][]float64) ([][]float64, error) {
 	// implements const multiplication
-	resArr := makeMatrix(len(rArr), len(rArr[0]))
+	resArr := MakeMatrix(len(rArr), len(rArr[0]))
 	for ri := 0; ri < len(resArr); ri++ {
 		for ci := 0; ci < len(resArr[0]); ci++ {
 			resArr[ri][ci] = rArr[ri][ci] * lVal
