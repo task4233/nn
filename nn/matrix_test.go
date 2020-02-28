@@ -38,7 +38,7 @@ func TestMakeMatrix(t *testing.T) {
 			actual := MakeMatrix(c.input1, c.input2)
 			if err := checkMatrixSize(actual, c.expected); err != nil {
 				t.Errorf(
-					"expected: makeMatrix(%v, %v) = %v, got %v",
+					"expected: MakeMatrix(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
 			}
 		})
@@ -66,7 +66,7 @@ func TestAdd(t *testing.T) {
 				}
 			} else if err := areSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
-					"expected: add(%v, %v) = %v, got %v",
+					"expected: Add(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
 			}
 		})
@@ -96,7 +96,7 @@ func TestDot(t *testing.T) {
 				}
 			} else if err := areSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
-					"expected: dot(%v, %v) = %v, got %v",
+					"expected: Dot(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
 			}
 		})
@@ -125,8 +125,32 @@ func TestConstMul(t *testing.T) {
 				}
 			} else if err := areSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
-					"expected: dot(%v, %v) = %v, got %v",
+					"expected: ConstMul(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
+			}
+		})
+	}
+}
+
+// TestTrans
+func TestTrans(t *testing.T) {
+    cases := []struct {
+        name string
+        input [][]float64
+        expected [][]float64
+    } {
+        {name: "2x2", input: [][]float64{{1.0, 2.0}, {3.0, 4.0}}, expected: [][]float64{{1.0, 3.0}, {2.0, 4.0}}},
+            {name: "2x3", input: [][]float64{{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}}, expected: [][]float64{{1.0, 3.0, 5.0}, {2.0, 4.0, 6.0}}},
+        }
+    
+    for _, c := range cases {
+        t.Run(c.name, func(t *testing.T) {
+			fmt.Printf("[TEST] %s begins\n", c.name)
+			actual := Trans(c.input)
+			if err := areSameMatrixes(actual, c.expected); err != nil {
+				t.Errorf(
+					"expected: Trans(%v) = %v, got %v",
+					c.input, c.expected, actual)
 			}
 		})
 	}

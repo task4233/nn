@@ -88,3 +88,14 @@ func ConstMul(lVal float64, rArr [][]float64) ([][]float64, error) {
 	}
 	return resArr, nil
 }
+
+// Trans returns transverse matrix
+func Trans(arr [][]float64) [][]float64 {
+    resArr := MakeMatrix(len(arr[0]), len(arr))
+    for ri:=0; ri<len(resArr); ri++ {
+        for ci:=0; ci<len(resArr[0]); ci++ {
+            resArr[ri][ci] = arr[ci][ri]
+        }
+    }
+    return resArr
+}
