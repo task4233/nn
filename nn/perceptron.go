@@ -43,3 +43,11 @@ func (n *NeuralNetwork) Forward(dataArr [][]float64) ([][]float64, error) {
 
 	return Softmax(resArr), nil
 }
+
+// Backward is back forwarding function
+func (n *NeuralNetwork) Backward(dataArr [][]float64) ([][]float64, error) {
+    resArr := MakeMatrix(len(dataArr), len(dataArr[0]))
+
+    // dummy value for return
+    return resArr, nil
+}
