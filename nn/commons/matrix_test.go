@@ -5,6 +5,34 @@ import (
 	"testing"
 )
 
+func TestAreSameMatrixes(t *testing.T) {
+	cases := []struct {
+		name     string
+		input1   [][]float64
+		input2   [][]float64
+		expected string
+	}{
+		{name: "1x1-1x1", input1: [][]float64{{1}}, input2: [][]float64{{1}}, expected: ""},
+		{name: "2x2-2x2", input1: [][]float64{{1, 2}, {3, 4}}, input2: [][]float64{{1, 2}, {3, 4}}, expected: ""},
+		{name: "1x1-2x2", input1: [][]float64{{1}}, input2: [][]float64{{1, 2}, {3, 4}}, expected: "different rows"},
+		{name: "2x2-2x2", input1: [][]float64{{1, 2}, {3, 4}}, input2: [][]float64{{2, 2}, {2, 2}}, expected: "different values"},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			fmt.Printf("[TEST] %s begins\n", c.name)
+			err := AreSameMatrixes(c.input1, c.input2)
+			if err != nil {
+				if err.Error() != c.expected {
+					t.Errorf(
+						"expected: AreSameMatrixes(%v, %v) = %v, got %v",
+						c.input1, c.input2, c.expected, err)
+				}
+			}
+		})
+	}
+}
+
 func TestMakeMatrix(t *testing.T) {
 	cases := []struct {
 		name     string
