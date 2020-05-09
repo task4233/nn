@@ -117,6 +117,7 @@ run_goimports() {
 		FILE_DIFF=$(goimports -d -e "${mdfile}" | sed -n '/@@.*/,//{/@@.*/d;p}')
 		FMT_OUTPUT="${FMT_OUTPUT}
 <details><summary><code>${mdfile}</code></summary>
+
 \`\`\`				
 ${FILE_DIFF}
 \`\`\`
@@ -201,9 +202,11 @@ run_gosec() {
 
     if [ "${SEND_COMMENT}" = "true" ]; then
 	COMMENT="## gosec failed
+
 \`\`\`
 $(tail -n 6 result.txt)
 \`\`\`
+
 <details><summary>Show Detail</summary>
 
 \`\`\`
