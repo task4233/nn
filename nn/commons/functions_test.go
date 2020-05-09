@@ -20,7 +20,7 @@ func TestSigmoid(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			actual := Sigmoid(c.input)
-			if err := areSameMatrixes(actual, c.expected); err != nil {
+			if err := AreSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: Sigmoid(%v) = %v, got %v",
 					c.input, c.expected, actual)
@@ -44,7 +44,7 @@ func TestSoftmax(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			fmt.Printf("[TEST] %s begins\n", c.name)
 			actual := Softmax(c.input)
-			if err := areSameMatrixes(actual, c.expected); err != nil {
+			if err := AreSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: Softmax(%v) = %v, got %v",
 					c.input, c.expected, actual)

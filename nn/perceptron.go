@@ -1,6 +1,9 @@
 package nn
 
-import "fmt"
+import (
+    "fmt"
+    commons "github.com/task4233/nn/nn/commons"
+)
 
 // NeuralNetwork has the information for building neural network
 type NeuralNetwork struct {
@@ -24,29 +27,29 @@ func (n *NeuralNetwork) Init() {
 
 // Forward is forwarding function
 func (n *NeuralNetwork) Forward(dataArr [][]float64) ([][]float64, error) {
-	resArr := MakeMatrix(len(dataArr), len(dataArr[0]))
+	resArr := commons.MakeMatrix(len(dataArr), len(dataArr[0]))
 	copy(resArr, dataArr)
 
 	for idx := 0; idx < n.middleLayerNum; idx++ {
-		tmpArr0, err := Dot(resArr, n.weight[idx])
+		tmpArr0, err := commons.Dot(resArr, n.weight[idx])
 		if err != nil {
 			return nil, fmt.Errorf("failed in forward(): %s", err)
 		}
 
-		tmpArr1, err := Add(tmpArr0, n.bias[idx])
+		tmpArr1, err := commons.Add(tmpArr0, n.bias[idx])
 		if err != nil {
 			return nil, fmt.Errorf("failed in forward(): %s", err)
 		}
 
-		resArr = Sigmoid(tmpArr1)
+		resArr = commons.Sigmoid(tmpArr1)
 	}
 
-	return Softmax(resArr), nil
+	return commons.Softmax(resArr), nil
 }
 
 // Backward is back forwarding function
 func (n *NeuralNetwork) Backward(dataArr [][]float64) ([][]float64, error) {
-    resArr := MakeMatrix(len(dataArr), len(dataArr[0]))
+    resArr := commons.MakeMatrix(len(dataArr), len(dataArr[0]))
 
     // dummy value for return
     return resArr, nil
