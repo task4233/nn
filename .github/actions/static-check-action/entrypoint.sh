@@ -235,7 +235,7 @@ run_staticcheck() {
     fi
 
     if [ "${SEND_COMMENT}" = "true" ]; then
-	COMMENT="## checksec failed
+	COMMENT="## staticcheck failed
 <details><summary>Show Detail</summary>
 
 \`\`\`

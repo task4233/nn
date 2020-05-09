@@ -1,8 +1,9 @@
 package nn
 
 import (
-    "fmt"
-    commons "github.com/task4233/nn/nn/commons"
+	"fmt"
+
+	commons "github.com/task4233/nn/nn/commons"
 )
 
 // NeuralNetwork has the information for building neural network
@@ -49,8 +50,8 @@ func (n *NeuralNetwork) Forward(dataArr [][]float64) ([][]float64, error) {
 
 // Backward is back forwarding function
 func (n *NeuralNetwork) Backward(dataArr [][]float64) ([][]float64, error) {
-    resArr := commons.MakeMatrix(len(dataArr), len(dataArr[0]))
+	resArr := commons.MakeMatrix(len(dataArr), len(dataArr[0]))
 
-    // dummy value for return
-    return resArr, nil
+	// dummy value for return
+	return resArr, nil
 }

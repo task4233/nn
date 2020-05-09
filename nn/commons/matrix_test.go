@@ -118,17 +118,17 @@ func TestConstMul(t *testing.T) {
 
 // TestTrans
 func TestTrans(t *testing.T) {
-    cases := []struct {
-        name string
-        input [][]float64
-        expected [][]float64
-    } {
-        {name: "2x2", input: [][]float64{{1.0, 2.0}, {3.0, 4.0}}, expected: [][]float64{{1.0, 3.0}, {2.0, 4.0}}},
-            {name: "2x3", input: [][]float64{{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}}, expected: [][]float64{{1.0, 3.0, 5.0}, {2.0, 4.0, 6.0}}},
-        }
-    
-    for _, c := range cases {
-        t.Run(c.name, func(t *testing.T) {
+	cases := []struct {
+		name     string
+		input    [][]float64
+		expected [][]float64
+	}{
+		{name: "2x2", input: [][]float64{{1.0, 2.0}, {3.0, 4.0}}, expected: [][]float64{{1.0, 3.0}, {2.0, 4.0}}},
+		{name: "2x3", input: [][]float64{{1.0, 2.0}, {3.0, 4.0}, {5.0, 6.0}}, expected: [][]float64{{1.0, 3.0, 5.0}, {2.0, 4.0, 6.0}}},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
 			fmt.Printf("[TEST] %s begins\n", c.name)
 			actual := Trans(c.input)
 			if err := AreSameMatrixes(actual, c.expected); err != nil {
