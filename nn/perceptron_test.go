@@ -3,7 +3,8 @@ package nn
 import (
 	"fmt"
 	"testing"
-    commons "github.com/task4233/nn/nn/commons"
+
+	commons "github.com/task4233/nn/nn/commons"
 )
 
 func TestForward(t *testing.T) {

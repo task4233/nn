@@ -15,7 +15,7 @@ func AreSameMatrixes(lArr [][]float64, rArr [][]float64) error {
 	for ri := 0; ri < len(lArr); ri++ {
 		for ci := 0; ci < len(lArr[0]); ci++ {
 			if lArr[ri][ci] != rArr[ri][ci] {
-				return errors.New("Different values")
+				return errors.New("different values")
 			}
 		}
 	}
@@ -107,11 +107,11 @@ func ConstMul(lVal float64, rArr [][]float64) ([][]float64, error) {
 
 // Trans returns transverse matrix
 func Trans(arr [][]float64) [][]float64 {
-    resArr := MakeMatrix(len(arr[0]), len(arr))
-    for ri:=0; ri<len(resArr); ri++ {
-        for ci:=0; ci<len(resArr[0]); ci++ {
-            resArr[ri][ci] = arr[ci][ri]
-        }
-    }
-    return resArr
+	resArr := MakeMatrix(len(arr[0]), len(arr))
+	for ri := 0; ri < len(resArr); ri++ {
+		for ci := 0; ci < len(resArr[0]); ci++ {
+			resArr[ri][ci] = arr[ci][ri]
+		}
+	}
+	return resArr
 }
