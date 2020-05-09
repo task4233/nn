@@ -3,6 +3,7 @@ package nn
 import (
 	"fmt"
 	"testing"
+    commons "github.com/task4233/nn/nn/commons"
 )
 
 func TestForward(t *testing.T) {
@@ -27,7 +28,7 @@ func TestForward(t *testing.T) {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)
 				}
-			} else if err := checkMatrixSize(actual, c.expected); err != nil {
+			} else if err := commons.CheckMatrixSize(actual, c.expected); err != nil {
 				t.Errorf("Error: %v\n", err)
 			}
 		})

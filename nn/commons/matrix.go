@@ -1,4 +1,4 @@
-package nn
+package commons
 
 import (
 	"errors"
@@ -6,8 +6,24 @@ import (
 	"os"
 )
 
-// checkMatrixSize checks structure such as row and colums
-func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
+// AreSameMatrixes checks if they are same
+func AreSameMatrixes(lArr [][]float64, rArr [][]float64) error {
+	if err := CheckMatrixSize(lArr, rArr); err != nil {
+		return err
+	}
+
+	for ri := 0; ri < len(lArr); ri++ {
+		for ci := 0; ci < len(lArr[0]); ci++ {
+			if lArr[ri][ci] != rArr[ri][ci] {
+				return errors.New("Different values")
+			}
+		}
+	}
+	return nil
+}
+
+// CheckMatrixSize checks structure such as row and colums
+func CheckMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	status := len(lArr) == len(rArr)
 	if !status {
 		// for check
@@ -24,8 +40,8 @@ func checkMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	return nil
 }
 
-// checkTransMatrixSize checks structure of trans matrix for calculating Dot
-func checkTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
+// CheckTransMatrixSize checks structure of trans matrix for calculating Dot
+func CheckTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	if len(lArr[0]) != len(rArr) {
 		fmt.Fprintf(os.Stderr, "lArr: %v\nrArr: %v\n", lArr, rArr)
 		return errors.New("different columns")
@@ -45,7 +61,7 @@ func MakeMatrix(row int, column int) [][]float64 {
 
 // Add is the function which add first array and second array
 func Add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
-	if err := checkMatrixSize(lArr, rArr); err != nil {
+	if err := CheckMatrixSize(lArr, rArr); err != nil {
 		return nil, fmt.Errorf("failed in add(): %s", err)
 	}
 
@@ -60,7 +76,7 @@ func Add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 
 // Dot is the function which multiply first array and second array
 func Dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
-	if err := checkTransMatrixSize(lArr, rArr); err != nil {
+	if err := CheckTransMatrixSize(lArr, rArr); err != nil {
 		return nil, fmt.Errorf("failed in dot(): %s", err)
 	}
 

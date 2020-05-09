@@ -1,25 +1,9 @@
-package nn
+package commons
 
 import (
-	"errors"
 	"fmt"
 	"testing"
 )
-
-func areSameMatrixes(lArr [][]float64, rArr [][]float64) error {
-	if err := checkMatrixSize(lArr, rArr); err != nil {
-		return err
-	}
-
-	for ri := 0; ri < len(lArr); ri++ {
-		for ci := 0; ci < len(lArr[0]); ci++ {
-			if lArr[ri][ci] != rArr[ri][ci] {
-				return errors.New("Different values")
-			}
-		}
-	}
-	return nil
-}
 
 func TestMakeMatrix(t *testing.T) {
 	cases := []struct {
@@ -36,7 +20,7 @@ func TestMakeMatrix(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			fmt.Printf("[TEST] %s begins\n", c.name)
 			actual := MakeMatrix(c.input1, c.input2)
-			if err := checkMatrixSize(actual, c.expected); err != nil {
+			if err := CheckMatrixSize(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: MakeMatrix(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
@@ -64,7 +48,7 @@ func TestAdd(t *testing.T) {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)
 				}
-			} else if err := areSameMatrixes(actual, c.expected); err != nil {
+			} else if err := AreSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: Add(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
@@ -94,7 +78,7 @@ func TestDot(t *testing.T) {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)
 				}
-			} else if err := areSameMatrixes(actual, c.expected); err != nil {
+			} else if err := AreSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: Dot(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
@@ -123,7 +107,7 @@ func TestConstMul(t *testing.T) {
 				if c.expected != nil {
 					t.Errorf("Error: %v\n", err)
 				}
-			} else if err := areSameMatrixes(actual, c.expected); err != nil {
+			} else if err := AreSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: ConstMul(%v, %v) = %v, got %v",
 					c.input1, c.input2, c.expected, actual)
@@ -147,7 +131,7 @@ func TestTrans(t *testing.T) {
         t.Run(c.name, func(t *testing.T) {
 			fmt.Printf("[TEST] %s begins\n", c.name)
 			actual := Trans(c.input)
-			if err := areSameMatrixes(actual, c.expected); err != nil {
+			if err := AreSameMatrixes(actual, c.expected); err != nil {
 				t.Errorf(
 					"expected: Trans(%v) = %v, got %v",
 					c.input, c.expected, actual)
