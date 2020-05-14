@@ -33,25 +33,26 @@ func TestAreSameMatrixes(t *testing.T) {
 	}
 }
 
-func TestMakeMatrix(t *testing.T) {
+func TestMakeMatrixWithValue(t *testing.T) {
 	cases := []struct {
 		name     string
 		input1   int
 		input2   int
+		input3   float64
 		expected [][]float64
 	}{
-		{name: "1x1", input1: 1, input2: 1, expected: [][]float64{{0}}},
-		{name: "2x3", input1: 2, input2: 3, expected: [][]float64{{0, 0, 0}, {0, 0, 0}}},
+		{name: "1x1", input1: 1, input2: 1, input3: 0, expected: [][]float64{{0}}},
+		{name: "2x3", input1: 2, input2: 3, input3: 5.5, expected: [][]float64{{5.5, 5.5, 5.5}, {5.5, 5.5, 5.5}}},
 	}
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			fmt.Printf("[TEST] %s begins\n", c.name)
-			actual := MakeMatrix(c.input1, c.input2)
+			actual := MakeMatrixWithValue(c.input1, c.input2, c.input3)
 			if err := CheckMatrixSize(actual, c.expected); err != nil {
 				t.Errorf(
-					"expected: MakeMatrix(%v, %v) = %v, got %v",
-					c.input1, c.input2, c.expected, actual)
+					"expected: MakeMatrixWithValue(%v, %v, %v) = %v, got %v",
+					c.input1, c.input2, c.input3, c.expected, actual)
 			}
 		})
 	}

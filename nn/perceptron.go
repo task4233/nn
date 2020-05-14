@@ -28,7 +28,7 @@ func (n *NeuralNetwork) Init() {
 
 // Forward is forwarding function
 func (n *NeuralNetwork) Forward(dataArr [][]float64) ([][]float64, error) {
-	resArr := commons.MakeMatrix(len(dataArr), len(dataArr[0]))
+	resArr := commons.MakeMatrixWithValue(len(dataArr), len(dataArr[0]), 0)
 	copy(resArr, dataArr)
 
 	for idx := 0; idx < n.middleLayerNum; idx++ {
@@ -46,12 +46,4 @@ func (n *NeuralNetwork) Forward(dataArr [][]float64) ([][]float64, error) {
 	}
 
 	return commons.Softmax(resArr), nil
-}
-
-// Backward is back forwarding function
-func (n *NeuralNetwork) Backward(dataArr [][]float64) ([][]float64, error) {
-	resArr := commons.MakeMatrix(len(dataArr), len(dataArr[0]))
-
-	// dummy value for return
-	return resArr, nil
 }

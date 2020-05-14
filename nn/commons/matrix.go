@@ -50,11 +50,19 @@ func CheckTransMatrixSize(lArr [][]float64, rArr [][]float64) error {
 	return nil
 }
 
-// MakeMatrix makes slice (first arugument) x (second argument)
-func MakeMatrix(row int, column int) [][]float64 {
+// MakeMatrixWithValue makes slice (first arugument) x (second argument)
+func MakeMatrixWithValue(row int, column int, value float64) [][]float64 {
 	resArr := make([][]float64, row)
 	for ri := 0; ri < row; ri++ {
 		resArr[ri] = make([]float64, column)
+		// init value on make is zero
+		if value == 0 {
+			continue
+		}
+
+		for ci := 0; ci < column; ci++ {
+			resArr[ri][ci] = value
+		}
 	}
 	return resArr
 }
@@ -65,7 +73,7 @@ func Add(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 		return nil, fmt.Errorf("failed in add(): %s", err)
 	}
 
-	resArr := MakeMatrix(len(lArr), len(lArr[0]))
+	resArr := MakeMatrixWithValue(len(lArr), len(lArr[0]), 0)
 	for ri := 0; ri < len(lArr); ri++ {
 		for ci := 0; ci < len(lArr[0]); ci++ {
 			resArr[ri][ci] = lArr[ri][ci] + rArr[ri][ci]
@@ -80,7 +88,7 @@ func Dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 		return nil, fmt.Errorf("failed in dot(): %s", err)
 	}
 
-	resArr := MakeMatrix(len(lArr), len(rArr[0]))
+	resArr := MakeMatrixWithValue(len(lArr), len(rArr[0]), 0)
 	for ri := 0; ri < len(resArr); ri++ {
 		for ci := 0; ci < len(resArr[0]); ci++ {
 			sum := 0.0
@@ -96,7 +104,7 @@ func Dot(lArr [][]float64, rArr [][]float64) ([][]float64, error) {
 // ConstMul is the function which multiply the first value and second array
 func ConstMul(lVal float64, rArr [][]float64) ([][]float64, error) {
 	// implements const multiplication
-	resArr := MakeMatrix(len(rArr), len(rArr[0]))
+	resArr := MakeMatrixWithValue(len(rArr), len(rArr[0]), 0)
 	for ri := 0; ri < len(resArr); ri++ {
 		for ci := 0; ci < len(resArr[0]); ci++ {
 			resArr[ri][ci] = rArr[ri][ci] * lVal
@@ -107,7 +115,7 @@ func ConstMul(lVal float64, rArr [][]float64) ([][]float64, error) {
 
 // Trans returns transverse matrix
 func Trans(arr [][]float64) [][]float64 {
-	resArr := MakeMatrix(len(arr[0]), len(arr))
+	resArr := MakeMatrixWithValue(len(arr[0]), len(arr), 0)
 	for ri := 0; ri < len(resArr); ri++ {
 		for ci := 0; ci < len(resArr[0]); ci++ {
 			resArr[ri][ci] = arr[ci][ri]
